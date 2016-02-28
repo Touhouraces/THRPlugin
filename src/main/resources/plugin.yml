@@ -1,0 +1,8 @@
+name: THRPlugin
+main: net.yeahsaba.tanikyan.thr.THRPlugin
+author: mireiyu,Tanikyan
+version: 0.1
+commands:
+   touhouraces:
+      description: THRPlugin Base Command
+      aliases: [thr,thrplugin]
