@@ -18,20 +18,17 @@ public class TouhouRaces extends JavaPlugin implements Listener {
 
 	////冗長防止
 	public static boolean magic_iscastable(Player pl, int mana,String string){
-		if (((MetadataValue) pl.getMetadata("casting").get(0)).asBoolean()) {
-			pl.sendMessage(THRPlugin.thrpre + ChatColor.RED + "他の魔法を詠唱中です");
-			return false;
-		} else if (((MetadataValue) pl.getMetadata("using-magic").get(0)).asBoolean()) {
-			pl.sendMessage(THRPlugin.thrpre + ChatColor.RED + "他の魔法を使用中です");
-			return false;
-		} else {
-			if (THRPlugin.conf.getDouble("user." + pl.getUniqueId() + ".spilit") > mana){
-				pl.sendMessage(THRPlugin.thrpre + ChatColor.LIGHT_PURPLE + string);
-				return true;
-			}else{
-				pl.sendMessage(THRPlugin.thrpre + ChatColor.RED + "霊力が不足しています");
-				return false;
-			}
+		if ((conf.getDouble("user." + player.getUniqueId() + ".spilit") < 100.0D) && (((MetadataValue)player.getMetadata("spilituse").get(0)).asDouble() == 0.0D)){
+			conf.set("user." + player.getUniqueId() + ".spilit", Double.valueOf(conf.getDouble("user." + player.getUniqueId() + ".spilit") + 5.0D));
+			if (player.isSneaking()) player.sendMessage(thrpre0 + ChatColor.GREEN + "霊力：" + ChatColor.LIGHT_PURPLE + conf.getDouble(new StringBuilder("user.").append(player.getUniqueId()).append(".spilit").toString()));
+			if (conf.getDouble("user." + player.getUniqueId() + ".spilit") >= 100.0D) player.sendMessage(thrpre0 + ChatColor.GREEN + "霊力：" + ChatColor.LIGHT_PURPLE + conf.getDouble(new StringBuilder("user.").append(player.getUniqueId()).append(".spilit").toString()));
+		}else if ((conf.getDouble("user." + player.getUniqueId() + ".spilit") < 100.0D) && (((MetadataValue)player.getMetadata("spilituse").get(0)).asDouble() < 0.0D)){
+			conf.set("user." + player.getUniqueId() + ".spilit", Double.valueOf(conf.getDouble("user." + player.getUniqueId() + ".spilit") - ((MetadataValue)player.getMetadata("spilituse").get(0)).asDouble()));
+			player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1.0F, -1.0F);
+			if (player.isSneaking()) player.sendMessage(thrpre0 + ChatColor.GREEN + "霊力：" + ChatColor.LIGHT_PURPLE + conf.getDouble(new StringBuilder("user.").append(player.getUniqueId()).append(".spilit").toString()));
+		}else if ((conf.getDouble("user." + player.getUniqueId() + ".spilit") > 0.0D) && (((MetadataValue)player.getMetadata("spilituse").get(0)).asDouble() > 0.0D)){
+			conf.set("user." + player.getUniqueId() + ".spilit", Double.valueOf(conf.getDouble("user." + player.getUniqueId() + ".spilit") - ((MetadataValue)player.getMetadata("spilituse").get(0)).asDouble()));
+			if (player.isSneaking()) player.sendMessage(thrpre0 + ChatColor.GREEN + "霊力：" + ChatColor.LIGHT_PURPLE + conf.getDouble(new StringBuilder("user.").append(player.getUniqueId()).append(".spilit").toString()));
 		}
     }
 
