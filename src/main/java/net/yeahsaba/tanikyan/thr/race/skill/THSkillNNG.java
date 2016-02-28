@@ -99,7 +99,7 @@ public class THSkillNNG extends JavaPlugin {
 		Snowball snowball=pl.throwSnowball();
 		MetadataValue shooter = new FixedMetadataValue(plugin, pl.getUniqueId().toString()) ;
 		MetadataValue fireeffect = new FixedMetadataValue(plugin, 30D) ;
-		snowball.setMetadata(" fireeffect", fireeffect);
+		snowball.setMetadata("fireffect", fireeffect);
 		snowball.setMetadata("mazyo-fireball", shooter);
 		snowball.setVelocity(velocity);
 		snowball.setFireTicks(300);
