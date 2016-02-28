@@ -45,6 +45,9 @@ public class SkillListener implements Listener {
 				}else if(snowball.hasMetadata("kappa-yukidama")){
 					e.setDamage(20);
 					p.sendMessage(((Player)snowball.getShooter()).getName() + "からの攻撃を受けた！");
+				}else if(snowball.hasMetadata("fireeffect")){
+				     e.setDamage(15);
+				     p.setFireTicks(160);
 				}else if (snowball.hasMetadata("hannrei-curseball")) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 150, 3));
 					p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 150, 3));
